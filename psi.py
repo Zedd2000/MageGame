@@ -14,13 +14,8 @@
 #   Known Issues                #
 #   ************                #
 #                               #
-#   pType() catches on non-     #
-#   text or number characters   #
-#   like ()*&^%$#@!<>?:;'" etc. #
+#   pType() loop is funky       #
 #                               #
-#   pType() after 'help' there  #
-#   is one broken input then it #
-#   works.                      #
 #                               #
 #
 
@@ -76,31 +71,28 @@ class Char():
         Engine.clear()
         Char.pType()
 
+    def intcheck():
+        while(True):
+            try:
+                psi = int(input("Please enter a number given : "))
+            except(ValueError):
+                psi = int(input("Please enter a number given : "))
+            else:
+                while(psi == 5):
+                    for x,y in zip(helpList,helpinfo):
+                        print(x,y)
+                    input("Continue")
+                    Engine.clear
+                    Char.intcheck()
+
+
     def pType():
         psi = None
         print("""What Type of Psychic Power do you Desire?\n
                 (1) Energy Shot     (2) Beserker
                 (3) Telekinesis     (4) Absorption
-                (5) Help""")
-        while(not isinstance(psi,int)):
-            psi = input("Please enter a number given : ")
-        if(isinstance(psi,int)):
-            while(not(0 < int(psi) < 5)):
-                psi = input("Power : ")
-                Engine.clear()
-                print("""What Type of Psychic Power do you Desire?\n
-                (1) Energy Shot     (2) Beserker
-                (3) Telekinesis     (4) Absorption
-                (5) Help""")
-                psi = input("Please enter a number given : ")
-                if(int(psi) == 5):
-                    for x,y in zip(helpList,helpinfo):
-                        print(x,y)
-                while(not isinstance(psi,int)):
-                    psi = input("Please enter a number given : ")
-                if(int(psi) == 5):
-                    for x,y in zip(helpList,helpinfo):
-                        print(x,y)
+                (5) Help\n""")
+        Char.intcheck()
 
         print("#######", psiList[int(psi)-1])
         print("####### Enemy =", enemypsi)
