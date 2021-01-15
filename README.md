@@ -1,2 +1,2 @@
-# A text-based turn-based battle game 
-## Still in development (in the process of merging two programs), and there are many know issues
+# A text-based turn-based battle game
+## In early development. I am in the process of restructuring the code into something more optimal.
