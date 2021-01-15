@@ -12,8 +12,8 @@ from os import system, name
 psiList = ["eshot","bes","tele","abs"]
 enemypsi = (psiList[random.randint(0,3)])
 
-helpList = ["Enerny Shot    : ","Beserker       : ","Telekinesis    : ","Absorbtion     : "]
-helpinfo = ["Energy Shot Info","Beserker Info","Telekinesis Info","Absoption Info"]
+helpList = ["1) Energy Shot    : ","2) Beserker       : ","3) Telekinesis    : ","4) Absorbtion     : ","5) Pyrokenesis :"]
+helpinfo = ["Energy Shot Info","Beserker Info","Telekinesis Info","Absoption Info","Pyrokenesis Info"]
 
 def clear():
 
@@ -26,23 +26,42 @@ def clear():
             _ = system('clear')
 
 #Player Character
-class Char:
-    def __init__(self, player, psi):
-        self.player = player
+class Player:
+    def __init__(self, charName, psi, stats):
+        self.charName = charName
         self.psi = psi
+        self.stats = stats
 
+#Non-Playable Character
 class NPC:
     def __init__(self, npcName, stats):
-        self.npcName = name
-        slef.stats = stats
+        self.npcName = npcName
+        self.stats = stats
+
+class StatBlock:
+    def __init__(self, stats):
+        self.stats = stats[stre,inte,perc,fort,char,quic,luck]
 
 
 #================================================#
 
-nameChoice = input("Name: ")
-psiChoice = input("PSI: ")
+def main():
+    nameChoice = ""
+    psiChoice = ""
+    STATSPLACEHOLDER = ""
 
-p1 = Char(nameChoice, psiChoice)
+    clear()
 
-print(p1.player)
-print(p1.psi)
+    while(not nameChoice.strip()):
+        nameChoice = input("Name? : ")
+        clear()
+    stats = StatBlock(stats)
+    p1 = Player(nameChoice, psiChoice, STATSPLACEHOLDER)
+
+    print(p1.charame)
+    print(p1.psi)
+
+
+
+
+main()
