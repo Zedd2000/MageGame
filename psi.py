@@ -84,11 +84,13 @@ class Player:
                     break
 
     def statPrint(self):
-        print("################################")
+        print("=" * 25)
         for stat in self.stats:
             vals = self.stats[stat]
-            print(vals[1] + " : " + str(vals[0])) # TODO # format tabs
-        print("################################")
+            one = vals[1]
+            two = str(vals[0])
+            print( ' {:<20s} {:<10s}'.format(one, two) )
+        print("=" * 25)
 
 
 #Non-Playable Character
@@ -118,7 +120,7 @@ def main():
 
     clear()
     print("############## Player Info ###############")
-    print(p1.charName)
-    print(p1.psi)
+    print("Name : " + p1.charName)
+    print("PSI : " + p1.psi)
     Player.statPrint(p1)
 main()
