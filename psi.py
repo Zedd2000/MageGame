@@ -38,41 +38,54 @@ class Player:
         self.psi = input("PSI : ") # TODO # Selective data input
         CR = input("Would you like Custom or Random stats? (C/R) : ")
         self.stats = {
-            "stre": int(0),
-            "inte": int(0),
-            "perc": int(0),
-            "fort": int(0),
-            "char": int(0),
-            "quic": int(0),
-            "luck": int(0)
+            "stre": [int(0),"Strength"],
+            "inte": [int(0),"Intelligence"],
+            "perc": [int(0),"Perception"],
+            "fort": [int(0),"Fortitude"],
+            "char": [int(0),"Charisma"],
+            "quic": [int(0),"Quickness"],
+            "luck": [int(0),"Luck"]
             }
         if(CR == "r" or CR == "R"): # Player has chosen to randomize thier stats
             for stat in self.stats:
-                self.stats[stat] = random.randint(1,10) # TODO # Add min/max amount of points to be allocated
+                vals = self.stats[stat] # Temporarily making into an accessable list
+                vals[0] = random.randint(1,10) # TODO # Add min/max amount of points to be allocated
+                self.stats[stat] = vals # Moving changes back into dictionary entry
         elif(CR == "c" or CR == "C"): # Player has chosen to customize thier stats
             pool = 50
             while(pool > 0): # Loop while points are still available
                 for stat in self.stats:
-                    print(self.stats) # TODO # Make pretty
+                    clear()
+                    self.statPrint()
                     print("Pool : " + str(pool))
                     print("")
+                    vals = self.stats[stat] # Temporarily making into an accessable list
                     delta = None # made to exists for the next loop
                     while(delta == None): # used to catch stats that go to high/low, and a negative pool
-                        delta = int(input("Change " + stat + " : "))
-                        if(self.stats[stat] + delta < 1 or self.stats[stat] + delta > 10): # The stat is too big/small
+                        delta = int(input("Change " + vals[1] + " : "))
+                        if(vals[0] + delta < 1 or vals[0] + delta > 10): # The stat is too big/small
                             print("Stats must be between 1 and 10")
                             delta = None # Loop back without moving to next stat
                         else:
-                            self.stats[stat] += delta # Change is applied to the stat
+                            vals[0] += delta # Change is applied to the stat
+                            self.stats[stat] = vals # Moving changes back into dictionary entry
                             pool -= delta # Same change is applied to the point pool
                         if(pool < 0): # The stat has become negative
                             print("Not enough points!\n")
                             pool += delta # Reverting change that made pool negative
-                            self.stats[stat] -= delta # Reverting change that made pool negative
+                            vals[0] -= delta # Reverting change that made pool negative
+                            self.stats[stat] = vals # Moving changes back into dictionary entry
                             delta = None # Loop back without moving to next stat
                 if(pool == 0 and sum(self.stats.values()) == 50):
                     print("You are out of points")
                     break
+
+    def statPrint(self):
+        print("################################")
+        for stat in self.stats:
+            vals = self.stats[stat]
+            print(vals[1] + " : " + str(vals[0])) # TODO # format tabs
+        print("################################")
 
 
 #Non-Playable Character
@@ -101,8 +114,8 @@ def main():
     p1 = Player(None,None,None) # This is all collected when the player character object is created
 
     clear()
+    print("############## Player Info ###############")
     print(p1.charName)
     print(p1.psi)
-    print(p1.stats)
-
+    Player.statPrint(p1)
 main()
