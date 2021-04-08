@@ -46,7 +46,7 @@ class Player:
             "quic": [int(0),"Quickness"],
             "luck": [int(0),"Luck"]
             }
-        if(CR == "r" or CR == "R"): # Player has chosen to randomize their stats
+        if(CR == "r" or CR == "R"): # Player has chosen to randomize thier stats
             for stat in self.stats:
                 vals = self.stats[stat] # Temporarily making into an accessable list
                 vals[0] = random.randint(1,10) # TODO # Add min/max amount of points to be allocated
@@ -60,26 +60,23 @@ class Player:
                     print("Pool : " + str(pool))
                     print("")
                     vals = self.stats[stat] # Temporarily making into an accessable list
-                    delta = None # made to exist for the next loop
+                    delta = None # made to exists for the next loop
                     while(delta == None): # used to catch stats that go to high/low, and a negative pool
                         delta = int(input("Change " + vals[1] + " : "))
                         if(vals[0] + delta < 1 or vals[0] + delta > 10): # The stat is too big/small
                             print("Stats must be between 1 and 10")
-                            delta = None
+                            delta = None # Loop back without moving to next stat
                         else:
-                            vals[0] += delta
-                            self.stats[stat] = vals
-                            pool -= delta
-                        if(pool < 0):
+                            vals[0] += delta # Change is applied to the stat
+                            self.stats[stat] = vals # Moving changes back into dictionary entry
+                            pool -= delta # Same change is applied to the point pool
+                        if(pool < 0): # The stat has become negative
                             print("Not enough points!\n")
-                            pool += delta
-                            vals[0] -= delta
-                            self.stats[stat] = vals        ### For comment on this section, please refer to /test-snippets/psi.py
-                            delta = None
-                        if(pool == 0):
-                            print("You are out of points")
-                            break
-                if(pool == 0):
+                            pool += delta # Reverting change that made pool negative
+                            vals[0] -= delta # Reverting change that made pool negative
+                            self.stats[stat] = vals # Moving changes back into dictionary entry
+                            delta = None # Loop back without moving to next stat
+                if(pool == 0 and sum(self.stats.values()) == 50):
                     print("You are out of points")
                     break
 
