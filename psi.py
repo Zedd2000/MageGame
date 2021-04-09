@@ -47,10 +47,19 @@ class Player:
             "luck": [int(0),"Luck"]
             }
         if(CR == "r" or CR == "R"): # Player has chosen to randomize their stats
-            for stat in self.stats:
-                vals = self.stats[stat] # Temporarily making into an accessable list
-                vals[0] = random.randint(1,10) # TODO # Add min/max amount of points to be allocated
-                self.stats[stat] = vals # Moving changes back into dictionary entry
+            minmax = False
+            total = 0
+            while(minmax == False):
+                for stat in self.stats:
+                    vals = self.stats[stat] # Temporarily making into an accessable list
+                    total += vals[0]
+                    vals[0] = random.randint(1,10) # TODO # Add min/max amount of points to be allocated
+                    self.stats[stat] = vals # Moving changes back into dictionary entry
+                print(total)
+                if(35 < total < 60):
+                    minmax = True
+                else:
+                    total = 0
         elif(CR == "c" or CR == "C"): # Player has chosen to customize thier stats
             pool = 50
             while(pool > 0): # Loop while points are still available
@@ -74,7 +83,7 @@ class Player:
                             print("Not enough points!\n")
                             pool += delta
                             vals[0] -= delta
-                            self.stats[stat] = vals        ### For comment on this section, please refer to /test-snippets/psi.py
+                            self.stats[stat] = vals
                             delta = None
                         if(pool == 0):
                             print("You are out of points")
@@ -118,7 +127,7 @@ def main():
 
     p1 = Player(None,None,None) # This is all collected when the player character object is created
 
-    clear()
+    #clear()
     print("############## Player Info ###############")
     print("Name : " + p1.charName)
     print("PSI : " + p1.psi)
