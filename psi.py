@@ -52,13 +52,13 @@ class Player:
             while(minmax == False):
                 for stat in self.stats:
                     vals = self.stats[stat] # Temporarily making into an accessable list
+                    vals[0] = random.randint(1,10)
                     total += vals[0]
-                    vals[0] = random.randint(1,10) # TODO # Add min/max amount of points to be allocated
                     self.stats[stat] = vals # Moving changes back into dictionary entry
-                print(total)
-                if(35 < total < 60):
+                if(39 < total < 61):
                     minmax = True
                 else:
+                    print("# FAIL # " + str(total))
                     total = 0
         elif(CR == "c" or CR == "C"): # Player has chosen to customize thier stats
             pool = 50
@@ -94,11 +94,14 @@ class Player:
 
     def statPrint(self):
         print("=" * 25)
+        total = 0
         for stat in self.stats:
             vals = self.stats[stat]
+            total += vals[0]
             one = vals[1]
             two = str(vals[0])
             print( ' {:<20s} {:<10s}'.format(one, two) )
+        print( ' {:<20s} {:<10s}'.format("Stat Total", str(total)) )
         print("=" * 25)
 
 
@@ -127,7 +130,7 @@ def main():
 
     p1 = Player(None,None,None) # This is all collected when the player character object is created
 
-    #clear()
+    clear()
     print("############## Player Info ###############")
     print("Name : " + p1.charName)
     print("PSI : " + p1.psi)
