@@ -20,9 +20,6 @@ classInfo = ["Energy Shot Class Info","Beserker Class Info","Telekinesis Class I
 # Distant TODO # Item System
 # Distant TODO # Gooey GUI
 
-#FIXED# custom stats string error
-
-
 def clear():
         if name == 'nt':
             _ = system('cls') # for windows
