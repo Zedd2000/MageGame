@@ -20,6 +20,9 @@ classInfo = ["Energy Shot Class Info","Beserker Class Info","Telekinesis Class I
 # Distant TODO # Item System
 # Distant TODO # Gooey GUI
 
+#FIXED# custom stats string error
+
+
 def clear():
         if name == 'nt':
             _ = system('cls') # for windows
@@ -29,8 +32,10 @@ def clear():
 #Player Character
 class Player:
     def __init__(self, charName, psi, stats):  #The Player character is created
-        self.charName = input("Name : ")
-        clear()
+        self.charName = ""
+        while(not self.charName.strip()):
+            self.charName = input("Name : ")
+            clear()
 
         intTest = False
         while(intTest == False):
@@ -46,7 +51,7 @@ class Player:
             else:
                 intTest = True
 
-        #clear()
+        clear()
 
         self.stats = {
             "stre": [int(0),"Strength"],
@@ -82,12 +87,22 @@ class Player:
                     for stat in self.stats:
                         clear()
                         self.statPrint()
-                        print("Pool : " + str(pool))
-                        print("")
+                        print("Pool : " + str(pool)+"\n")
                         vals = self.stats[stat] # Temporarily making into an accessable list
                         delta = None # made to exist for the next loop
                         while(delta == None): # used to catch stats that go to high/low, and a negative pool
-                            delta = int(input("Change " + vals[1] + " : "))
+                            intTest = False
+                            while(intTest == False):
+                                try:
+                                    delta = int(input("Change " + vals[1] + " : "))
+                                except ValueError:
+                                    clear()
+                                    self.statPrint()
+                                    print("Pool : " + str(pool)+"\n")
+                                    print("Stats must be between 1 and 10")
+                                else:
+                                    intTest = True
+
                             if(vals[0] + delta < 1 or vals[0] + delta > 10): # The stat is too big/small
                                 print("Stats must be between 1 and 10")
                                 delta = None
