@@ -46,12 +46,7 @@ class Player:
             else:
                 intTest = True
 
-
-
         #clear()
-
-        CR = input("Would you like Custom or Random stats? (C/R) : ")
-        clear()
 
         self.stats = {
             "stre": [int(0),"Strength"],
@@ -62,51 +57,56 @@ class Player:
             "quic": [int(0),"Quickness"],
             "luck": [int(0),"Luck"]
             }
-        if(CR == "r" or CR == "R"): # Player has chosen to randomize their stats
-            minmax = False
-            total = 0
-            while(minmax == False):
-                for stat in self.stats:
-                    vals = self.stats[stat] # Temporarily making into an accessable list
-                    vals[0] = random.randint(1,10)
-                    total += vals[0]
-                    self.stats[stat] = vals # Moving changes back into dictionary entry
-                if(39 < total < 61):
-                    minmax = True
-                else:
-                    print("# FAIL # " + str(total))
-                    total = 0
-        elif(CR == "c" or CR == "C"): # Player has chosen to customize thier stats
-            pool = 50
-            while(pool > 0): # Loop while points are still available
-                for stat in self.stats:
-                    clear()
-                    self.statPrint()
-                    print("Pool : " + str(pool))
-                    print("")
-                    vals = self.stats[stat] # Temporarily making into an accessable list
-                    delta = None # made to exist for the next loop
-                    while(delta == None): # used to catch stats that go to high/low, and a negative pool
-                        delta = int(input("Change " + vals[1] + " : "))
-                        if(vals[0] + delta < 1 or vals[0] + delta > 10): # The stat is too big/small
-                            print("Stats must be between 1 and 10")
-                            delta = None
-                        else:
-                            vals[0] += delta
-                            self.stats[stat] = vals
-                            pool -= delta
-                        if(pool < 0):
-                            print("Not enough points!\n")
-                            pool += delta
-                            vals[0] -= delta
-                            self.stats[stat] = vals
-                            delta = None
-                        if(pool == 0):
-                            print("You are out of points")
-                            break
-                if(pool == 0):
-                    print("You are out of points")
-                    break
+
+        CR = None
+        while(not CR in ["c","r","C","R"]):
+            CR = input("Would you like Custom or Random stats? (C/R) : ")
+            clear()
+            if(CR in ["r","R"]): # Player has chosen to randomize their stats
+                minmax = False
+                total = 0
+                while(minmax == False):
+                    for stat in self.stats:
+                        vals = self.stats[stat] # Temporarily making into an accessable list
+                        vals[0] = random.randint(1,10)
+                        total += vals[0]
+                        self.stats[stat] = vals # Moving changes back into dictionary entry
+                    if(39 < total < 61):
+                        minmax = True
+                    else:
+                        #print("# FAIL # " + str(total))
+                        total = 0
+            elif(CR in ["c","C"]): # Player has chosen to customize thier stats
+                pool = 50
+                while(pool > 0): # Loop while points are still available
+                    for stat in self.stats:
+                        clear()
+                        self.statPrint()
+                        print("Pool : " + str(pool))
+                        print("")
+                        vals = self.stats[stat] # Temporarily making into an accessable list
+                        delta = None # made to exist for the next loop
+                        while(delta == None): # used to catch stats that go to high/low, and a negative pool
+                            delta = int(input("Change " + vals[1] + " : "))
+                            if(vals[0] + delta < 1 or vals[0] + delta > 10): # The stat is too big/small
+                                print("Stats must be between 1 and 10")
+                                delta = None
+                            else:
+                                vals[0] += delta
+                                self.stats[stat] = vals
+                                pool -= delta
+                            if(pool < 0):
+                                print("Not enough points!\n")
+                                pool += delta
+                                vals[0] -= delta
+                                self.stats[stat] = vals
+                                delta = None
+                            if(pool == 0):
+                                print("You are out of points")
+                                break
+                    if(pool == 0):
+                        print("You are out of points")
+                        break
 
     def statPrint(self):
         print("=" * 25)
