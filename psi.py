@@ -123,18 +123,17 @@ class Player:
 
 #Non-Playable Character
 class NPC:
-    def __init__(self, npcName, stats):
+    def __init__(self, npcName, psi, stats):
         self.npcName = "Randomized Enemy NPC" # TODO # Create collection of names to randomly select from
         self.psi = (psiList[random.randint(0,4)]) # enemy is assigned a random class
-        print(self.psi) # Temporary, for my sake
         self.stats = {
-            "stre": [random.randint(1,10)],
-            "inte": [random.randint(1,10)],
-            "perc": [random.randint(1,10)],
-            "fort": [random.randint(1,10)], # All stats are randomized
-            "char": [random.randint(1,10)], # TODO # Create tiers of enemies with varying min/max stat levels
-            "quic": [random.randint(1,10)], #      # EX: Weakling, mid-grade, boss, endgame
-            "luck": [random.randint(1,10)]
+            "stre": [random.randint(1,10), "Strength"],
+            "inte": [random.randint(1,10), "Intelligence"],
+            "perc": [random.randint(1,10), "Perception"],
+            "fort": [random.randint(1,10), "Fortitude"], # All stats are randomized
+            "char": [random.randint(1,10), "Charisma"], # TODO # Create tiers of enemies with varying min/max stat levels
+            "quic": [random.randint(1,10), "Quickness"], #      # EX: Weakling, mid-grade, boss, endgame
+            "luck": [random.randint(1,10), "Luck"]
             }
 
 #================================================#
@@ -143,10 +142,18 @@ def main():
     clear()
 
     p1 = Player(None,None,None) # This is all collected when the player character object is created
+    enemy = NPC(None,None,None)
 
     clear()
     print("############## Player Info ###############")
     print("Name : " + p1.charName)
     print("PSI : " + psiList[int(p1.psi - 1)])
     Player.statPrint(p1)
+
+    print("")
+
+    print("############## Enemy Info ###############")
+    print("Name : " + enemy.npcName)
+    print("PSI : " + enemy.psi)
+    Player.statPrint(enemy)
 main()
