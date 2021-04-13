@@ -9,11 +9,11 @@
 import random
 from os import system, name
 
-#psiList = ["eshot","bes","tele","abs","pyro"]
-#enemypsi = (psiList[random.randint(0,4)])
+psiList = ["eshot","bes","tele","abs","pyro"]
+enemypsi = (psiList[random.randint(0,4)])
 
-#helpList = ["1) Energy Shot    : ","2) Beserker       : ","3) Telekinesis    : ","4) Absorbtion     : ","5) Pyrokenesis :"]
-#helpinfo = ["Energy Shot Info","Beserker Info","Telekinesis Info","Absoption Info","Pyrokenesis Info"]
+classList = ["1) Energy Shot    : ","2) Beserker       : ","3) Telekinesis    : ","4) Absorbtion     : ","5) Pyrokenesis    : "]
+classInfo = ["Energy Shot Class Info","Beserker Class Info","Telekinesis Class Info","Absorbtion Class Info","Pyrokenesis Class Info\n"]
 
 # Distant TODO # Battle System
 # Distant TODO # Class abilities
@@ -21,22 +21,38 @@ from os import system, name
 # Distant TODO # Gooey GUI
 
 def clear():
-
-        # for windows
         if name == 'nt':
-            _ = system('cls')
-
-        # for mac and linux
+            _ = system('cls') # for windows
         else:
-            _ = system('clear')
+            _ = system('clear') # for mac and linux
 
 #Player Character
 class Player:
     def __init__(self, charName, psi, stats):  #The Player character is created
-        # Name and class are collected during creation
         self.charName = input("Name : ")
-        self.psi = input("PSI : ") # TODO # Selective data input
+        clear()
+
+        intTest = False
+        while(intTest == False):
+            try:
+                for x,y in zip(classList,classInfo):
+                    print(x,y)
+                self.psi = int(input("PSI : "))
+                if(not 0< self.psi < 6):
+                    int("Intentional ValueError")
+            except ValueError:
+                clear()
+                print("Please enter a number given\n")
+            else:
+                intTest = True
+
+
+
+        #clear()
+
         CR = input("Would you like Custom or Random stats? (C/R) : ")
+        clear()
+
         self.stats = {
             "stre": [int(0),"Strength"],
             "inte": [int(0),"Intelligence"],
@@ -101,9 +117,9 @@ class Player:
             one = vals[1]
             two = str(vals[0])
             print( ' {:<20s} {:<10s}'.format(one, two) )
+        print("-" * 25)
         print( ' {:<20s} {:<10s}'.format("Stat Total", str(total)) )
         print("=" * 25)
-
 
 #Non-Playable Character
 class NPC:
@@ -121,8 +137,6 @@ class NPC:
             "luck": [random.randint(1,10)]
             }
 
-
-
 #================================================#
 
 def main():
@@ -133,6 +147,6 @@ def main():
     clear()
     print("############## Player Info ###############")
     print("Name : " + p1.charName)
-    print("PSI : " + p1.psi)
+    print("PSI : " + psiList[int(p1.psi - 1)])
     Player.statPrint(p1)
 main()
