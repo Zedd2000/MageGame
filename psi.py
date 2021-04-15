@@ -66,18 +66,16 @@ class Player:
             CR = input("Would you like Custom or Random stats? (C/R) : ")
             clear()
             if(CR in ["r","R"]): # Player has chosen to randomize their stats
-                minmax = False
                 total = 0
-                while(minmax == False):
+                while(True):
                     for stat in self.stats:
                         vals = self.stats[stat] # Temporarily making into an accessable list
                         vals[0] = random.randint(1,10)
                         total += vals[0]
                         self.stats[stat] = vals # Moving changes back into dictionary entry
                     if(39 < total < 61):
-                        minmax = True
+                        break
                     else:
-                        #print("# FAIL # " + str(total))
                         total = 0
             elif(CR in ["c","C"]): # Player has chosen to customize thier stats
                 pool = 50
@@ -91,7 +89,7 @@ class Player:
                         while(delta == None): # used to catch stats that go to high/low, and a negative pool
                             while(True):
                                 try:
-                                    if(pool == 0):
+                                    if(pool == 0): # if the points pool is empty, break out of the loop.
                                         delta = 0
                                         break
                                     delta = int(input("Change " + vals[1] + " : ")) # collect how much to add/sub from the stat
