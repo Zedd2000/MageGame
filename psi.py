@@ -12,6 +12,7 @@ from os import system, name
 psiList = ["eshot","bes","tele","abs","pyro"]
 enemypsi = (psiList[random.randint(0,4)])
 
+# Think of the PSI as the character class. Ex: Pyro, Heavy, Scout from tf2
 classList = ["1) Energy Shot    : ","2) Beserker       : ","3) Telekinesis    : ","4) Absorbtion     : ","5) Pyrokenesis    : "]
 classInfo = ["Energy Shot Class Info","Beserker Class Info","Telekinesis Class Info","Absorbtion Class Info","Pyrokenesis Class Info\n"]
 
@@ -19,8 +20,9 @@ classInfo = ["Energy Shot Class Info","Beserker Class Info","Telekinesis Class I
 # Distant TODO # Class abilities
 # Distant TODO # Item System
 # Distant TODO # Gooey GUI
+# TODO # Non-input, calculated stats
 
-def clear():
+def clear(): # Clears the screen. Thanks Stackoverflow
         if name == 'nt':
             _ = system('cls') # for windows
         else:
@@ -28,25 +30,24 @@ def clear():
 
 #Player Character
 class Player:
-    def __init__(self, charName, psi, stats):  #The Player character is created
+    def __init__(self, charName, psi, stats):  # The Player character is created
         self.charName = ""
-        while(not self.charName.strip()):
+        while(not self.charName.strip()): # Making sure name is not set to an empty string
             self.charName = input("Name : ")
             clear()
 
-        intTest = False
-        while(intTest == False):
+        while(True): # Making sure psi selection is with an int
             try:
-                for x,y in zip(classList,classInfo):
+                for x,y in zip(classList,classInfo): # Printing names and info of the psi classes
                     print(x,y)
                 self.psi = int(input("PSI : "))
                 if(not 0< self.psi < 6):
-                    int("Intentional ValueError")
+                    int("Intentional ValueError") # input is out of the expected range, force a ValueError
             except ValueError:
                 clear()
-                print("Please enter a number given\n")
+                print("Please enter a number given\n") # input was not an expected int, loop back
             else:
-                intTest = True
+                break
 
         clear()
 
@@ -88,39 +89,28 @@ class Player:
                         vals = self.stats[stat] # Temporarily making into an accessable list
                         delta = None # made to exist for the next loop
                         while(delta == None): # used to catch stats that go to high/low, and a negative pool
-                            intTest = False
-                            while(intTest == False):
+                            while(True):
                                 try:
-                                    delta = int(input("Change " + vals[1] + " : "))
-                                except ValueError:
+                                    if(pool == 0):
+                                        delta = 0
+                                        break
+                                    delta = int(input("Change " + vals[1] + " : ")) # collect how much to add/sub from the stat
+                                    if(vals[0] + delta < 1 or vals[0] + delta > 10 or pool - delta < 0):
+                                        int("Intentional ValueError") # The stat is too big/small or it goes past the point limit, so throw an error
+                                except ValueError: # Player entered a string/an int out of the accepted range
                                     clear()
                                     self.statPrint()
                                     print("Pool : " + str(pool)+"\n")
-                                    print("Stats must be between 1 and 10")
+                                    print("Stats must be between 1 and 10, with a total no greater than 50.") # input is undesirable. loop back
                                 else:
-                                    intTest = True
-
-                            if(vals[0] + delta < 1 or vals[0] + delta > 10): # The stat is too big/small
-                                print("Stats must be between 1 and 10")
-                                delta = None
-                            else:
-                                vals[0] += delta
-                                self.stats[stat] = vals
-                                pool -= delta
-                            if(pool < 0):
-                                print("Not enough points!\n")
-                                pool += delta
-                                vals[0] -= delta
-                                self.stats[stat] = vals
-                                delta = None
-                            if(pool == 0):
-                                print("You are out of points")
+                                    break # input is good. break out of loop
+                            vals[0] += delta # temp variable is set to the input
+                            self.stats[stat] = vals # stat is set to the temp variable
+                            pool -= delta # The input is subtracted from the point pool.
+                            if(pool == 0): # Out of point, break the loop
                                 break
-                    if(pool == 0):
-                        print("You are out of points")
-                        break
 
-    def statPrint(self):
+    def statPrint(self): # prints a nice, formatted list of stats
         print("=" * 25)
         total = 0
         for stat in self.stats:
