@@ -30,7 +30,7 @@ def clear(): # Clears the screen. Thanks Stackoverflow
 
 #Player Character
 class Player:
-    def __init__(self, charName, psi, stats):  # The Player character is created
+    def __init__(self, charName, psi, stats, calcStats):  # The Player character is created
         self.charName = ""
         while(not self.charName.strip()): # Making sure name is not set to an empty string
             self.charName = input("Name : ")
@@ -73,7 +73,7 @@ class Player:
                         vals[0] = random.randint(1,10)
                         total += vals[0]
                         self.stats[stat] = vals # Moving changes back into dictionary entry
-                    if(39 < total < 61):
+                    if(44 < total < 66):
                         break
                     else:
                         total = 0
@@ -135,13 +135,13 @@ class NPC:
             "quic": [random.randint(1,10), "Quickness"], #      # EX: Weakling, mid-grade, boss, endgame
             "luck": [random.randint(1,10), "Luck"]
             }
-
+    
 #================================================#
 
 def main():
     clear()
 
-    p1 = Player(None,None,None) # This is all collected when the player character object is created
+    p1 = Player(None,None,None,None) # This is all collected when the player character object is created
     enemy = NPC(None,None,None)
 
     clear()
