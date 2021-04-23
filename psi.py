@@ -28,6 +28,10 @@ def clear(): # Clears the screen. Thanks Stackoverflow
         else:
             _ = system('clear') # for mac and linux
 
+def rand_line(fname): #grabs random line of text file
+    lines = open(fname).read().splitlines()
+    return random.choice(lines)
+
 #Player Character
 class Player:
     def __init__(self, charName, psi, stats, calcStats):  # The Player character is created
@@ -124,7 +128,7 @@ class Player:
 #Non-Playable Character
 class NPC:
     def __init__(self, npcName, psi, stats):
-        self.npcName = "Randomized Enemy NPC" # TODO # Create collection of names to randomly select from
+        self.npcName = random_line(".randname") # TODO # Create cool collection of names to randomly select from
         self.psi = (psiList[random.randint(0,4)]) # enemy is assigned a random class
         self.stats = {
             "stre": [random.randint(1,10), "Strength"],
