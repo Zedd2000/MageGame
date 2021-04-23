@@ -1,8 +1,14 @@
 ################################
 #                               #
-#   PSI Battle                  #
+#   Working Name : PSI Battle   #
 #   20201002 -                  #
-#   Zed & JHarttech             #
+#   Zed                         #
+#                               #
+#   Special Thanks              #
+#   --------------              #
+#                               #
+#   JHarttech                   #
+#   Popspy76                    #
 #                               #
 ################################
 
