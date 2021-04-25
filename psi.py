@@ -134,7 +134,7 @@ class Player:
 #Non-Playable Character
 class NPC:
     def __init__(self, npcName, psi, stats):
-        self.npcName = random_line(".randname") # TODO # Create cool collection of names to randomly select from
+        self.npcName = rand_line(".randname") # TODO # Create cool collection of names to randomly select from
         self.psi = (psiList[random.randint(0,4)]) # enemy is assigned a random class
         self.stats = {
             "stre": [random.randint(1,10), "Strength"],
