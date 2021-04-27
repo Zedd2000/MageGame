@@ -17,6 +17,7 @@ from os import system, name
 
 psiList = ["eshot","bes","tele","abs","pyro"]
 enemypsi = (psiList[random.randint(0,4)])
+tierlist = ["Weakling", "Midling", "Boss", "Endgame"]
 
 # Think of the PSI as the character class. Ex: Pyro, Heavy, Scout from tf2
 classList = ["1) Energy Shot    : ","2) Beserker       : ","3) Telekinesis    : ","4) Absorbtion     : ","5) Pyrokenesis    : "]
@@ -133,26 +134,29 @@ class Player:
 
 #Non-Playable Character
 class NPC:
-    def __init__(self, npcName, psi, stats):
+    def __init__(self, npcName, psi, stats,tiernum):
+        self.tiernum = random.randint(0,3)
         self.npcName = rand_line(".randname") # TODO # Create cool collection of names to randomly select from
         self.psi = (psiList[random.randint(0,4)]) # enemy is assigned a random class
+        tmodmin = {0 : 1, 1 : 10, 2 : 20, 3 : 40}
+        tmodmax = {0 : 10, 1 : 20, 2 : 30, 3 : 50}
         self.stats = {
-            "stre": [random.randint(1,10), "Strength"],
-            "inte": [random.randint(1,10), "Intelligence"],
-            "perc": [random.randint(1,10), "Perception"],
-            "fort": [random.randint(1,10), "Fortitude"], # All stats are randomized
-            "char": [random.randint(1,10), "Charisma"], # TODO # Create tiers of enemies with varying min/max stat levels
-            "quic": [random.randint(1,10), "Quickness"], #      # EX: Weakling, mid-grade, boss, endgame
-            "luck": [random.randint(1,10), "Luck"]
+            "stre": [random.randint(tmodmin.get(self.tiernum),tmodmax.get(self.tiernum)), "Strength"],
+            "inte": [random.randint(tmodmin.get(self.tiernum),tmodmax.get(self.tiernum)), "Intelligence"],
+            "perc": [random.randint(tmodmin.get(self.tiernum),tmodmax.get(self.tiernum)), "Perception"],
+            "fort": [random.randint(tmodmin.get(self.tiernum),tmodmax.get(self.tiernum)), "Fortitude"], # All stats are semi-randomized due to tiers
+            "char": [random.randint(tmodmin.get(self.tiernum),tmodmax.get(self.tiernum)), "Charisma"],
+            "quic": [random.randint(tmodmin.get(self.tiernum),tmodmax.get(self.tiernum)), "Quickness"],
+            "luck": [random.randint(tmodmin.get(self.tiernum),tmodmax.get(self.tiernum)), "Luck"]
             }
-    
+
 #================================================#
 
 def main():
     clear()
 
     p1 = Player(None,None,None,None) # This is all collected when the player character object is created
-    enemy = NPC(None,None,None)
+    enemy = NPC(None,None,None,None)
 
     clear()
     print("############## Player Info ###############")
@@ -165,5 +169,6 @@ def main():
     print("############## Enemy Info ###############")
     print("Name : " + enemy.npcName)
     print("PSI : " + enemy.psi)
+    print("Tier : " + tierlist[int(enemy.tiernum)])
     Player.statPrint(enemy)
 main()
