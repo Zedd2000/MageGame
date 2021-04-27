@@ -16,7 +16,6 @@ import random
 from os import system, name
 
 psiList = ["eshot","bes","tele","abs","pyro"]
-enemypsi = (psiList[random.randint(0,4)])
 tierlist = ["Weakling", "Midling", "Boss", "Endgame"]
 
 # Think of the PSI as the character class. Ex: Pyro, Heavy, Scout from tf2
@@ -137,7 +136,7 @@ class NPC:
     def __init__(self, npcName, psi, stats,tiernum):
         self.tiernum = random.randint(0,3)
         self.npcName = rand_line(".randname") # TODO # Create cool collection of names to randomly select from
-        self.psi = (psiList[random.randint(0,4)]) # enemy is assigned a random class
+        self.psi = random.choice(psiList) # enemy is assigned a random class
         tmodmin = {0 : 1, 1 : 10, 2 : 20, 3 : 40}
         tmodmax = {0 : 10, 1 : 20, 2 : 30, 3 : 50}
         self.stats = {
