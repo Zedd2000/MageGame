@@ -57,10 +57,10 @@ class Player:
             }
 
         CR = None
-        while(not CR in ["c","r","C","R"]):
-            CR = input("Would you like Custom or Random stats? (C/R) : ")
+        while(not CR in ["C","R"]):
+            CR = input("Would you like Custom or Random stats? (C/R) : ").upper()
             core.clear()
-            if(CR in ["r","R"]): # Player has chosen to randomize their stats
+            if(CR == "R"): # Player has chosen to randomize their stats
                 total = 0
                 while(True):
                     for stat in self.stats:
@@ -72,7 +72,7 @@ class Player:
                         break
                     else:
                         total = 0
-            elif(CR in ["c","C"]): # Player has chosen to customize thier stats
+            elif(CR == "C"): # Player has chosen to customize thier stats
                 pool = 50
                 while(pool > 0): # Loop while points are still available
                     for stat in self.stats:
