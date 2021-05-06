@@ -21,7 +21,7 @@ tierList = ["Weakling", "Midling", "Boss", "Endgame"]
 
 # Think of the PSI as the character class. Ex: Pyro, Heavy, Scout from tf2
 classList = ["1) Energy Shot    : ","2) Beserker       : ","3) Telekinesis    : ","4) Absorbtion     : ","5) Pyrokenesis    : "]
-classInfo = ["Energy Shot Class Info","Beserker Class Info","Telekinesis Class Info","Absorbtion Class Info","Pyrokenesis Class Info\n"]
+classInfo = ["High damage in bursts, needs to recharge after using up thier energy.","Balanced stats, can activate Rage to greatly increase damage and decrease defense.","Medium-low stats, high speed, uses telekinesis to buff themself, and debuff enemies.","High defense and low damage, can absorb incoming damage and release it, dealing damage based on how much was stored.","Low damage, but can use fire to deal high amounts of damge over time.\n"]
 
 #Player Character
 class Player:
@@ -52,7 +52,7 @@ class Player:
             "perc": [int(0),"Perception"],
             "fort": [int(0),"Fortitude"],
             "char": [int(0),"Charisma"],
-            "quic": [int(0),"Quickness"],
+            "spee": [int(0),"Speed"],
             "luck": [int(0),"Luck"]
             }
 
@@ -130,6 +130,6 @@ class NPC:
             "perc": [random.randint(tModMin.get(self.tierNum),tModMax.get(self.tierNum)), "Perception"],
             "fort": [random.randint(tModMin.get(self.tierNum),tModMax.get(self.tierNum)), "Fortitude"], # All stats are semi-randomized due to tiers
             "char": [random.randint(tModMin.get(self.tierNum),tModMax.get(self.tierNum)), "Charisma"],
-            "quic": [random.randint(tModMin.get(self.tierNum),tModMax.get(self.tierNum)), "Quickness"],
+            "spee": [random.randint(tModMin.get(self.tierNum),tModMax.get(self.tierNum)), "Speed"],
             "luck": [random.randint(tModMin.get(self.tierNum),tModMax.get(self.tierNum)), "Luck"]
             }
