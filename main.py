@@ -1,6 +1,6 @@
 ################################
 #                               #
-#   Working Name : PSI Battle   #
+#   Working Name : Mage Battle  #
 #   File: Main                  #
 #   20201002 -                  #
 #   Zed                         #
@@ -21,7 +21,7 @@
 # Distant TODO # Gooey GUI
 
 import CharacterCreator as char
-from CharacterCreator import psiList, tierList, classList, classInfo
+from CharacterCreator import classList, tierList, classNameList, classInfo
 import random
 import core
 from os import system, name
@@ -35,7 +35,7 @@ def main():
     core.clear()
     print("############## Player Info ###############")
     print("Name : " + p1.charName)
-    print("PSI : " + psiList[int(p1.psi - 1)])
+    print("Class : " + classList[int(p1.mageClass - 1)])
     char.Player.statPrint(p1)
     char.Player.calcStatPrint(p1)
 
@@ -43,7 +43,7 @@ def main():
 
     print("############## Enemy Info ###############")
     print("Name : " + enemy.npcName)
-    print("PSI : " + enemy.psi)
+    print("Class : " + enemy.mageClass)
     print("Tier : " + tierList[int(enemy.tierNum)])
     char.Player.statPrint(enemy)
     char.Player.calcStatPrint(enemy)

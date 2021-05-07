@@ -1,6 +1,6 @@
 ################################
 #                               #
-#   Working Name : PSI Battle   #
+#   Working Name : Mage Battle  #
 #   File:   Core Functions      #
 #   20201002 -                  #
 #   Zed                         #

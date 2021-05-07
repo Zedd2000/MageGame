@@ -1,6 +1,6 @@
 ################################
 #                               #
-#   Working Name : PSI Battle   #
+#   Working Name : Mage Battle  #
 #   File:   Character Creator   #
 #   20201002 -                  #
 #   Zed                         #
@@ -16,16 +16,16 @@
 import random
 import core
 
-psiList = ["eshot","bes","tele","abs","pyro"]
+classList = ["eshot","bes","tele","abs","pyro"]
 tierList = ["Weakling", "Midling", "Boss", "Endgame"]
 
 # Think of the PSI as the character class. Ex: Pyro, Heavy, Scout from tf2
-classList = ["1) Energy Shot    : ","2) Beserker       : ","3) Telekinesis    : ","4) Absorbtion     : ","5) Pyrokenesis    : "]
+classNameList = ["1) Energy Shot    : ","2) Beserker       : ","3) Telekinesis    : ","4) Absorbtion     : ","5) Pyrokenesis    : "]
 classInfo = ["High damage in bursts, needs to recharge after using up thier energy.","Balanced stats, can activate Rage to greatly increase damage and decrease defense.","Medium-low stats, high speed, uses telekinesis to buff themself, and debuff enemies.","High defense and low damage, can absorb incoming damage and release it, dealing damage based on how much was stored.","Low damage, but can use fire to deal high amounts of damge over time.\n"]
 
 #Player Character
 class Player:
-    def __init__(self, charName, psi, stats, calcStats):  # The Player character is created
+    def __init__(self, charName, mageClass, stats, calcStats):  # The Player character is created
         self.charName = ""
         while(not self.charName.strip()): # Making sure name is not set to an empty string
             self.charName = input("Name : ")
@@ -33,10 +33,10 @@ class Player:
 
         while(True): # Making sure psi selection is with an int
             try:
-                for x,y in zip(classList,classInfo): # Printing names and info of the psi classes
+                for x,y in zip(classNameList,classInfo): # Printing names and info of the psi classes
                     print(x,y)
-                self.psi = int(input("PSI : "))
-                if(not 0< self.psi < 6):
+                self.mageClass = int(input("PSI : "))
+                if(not 0< self.mageClass < 6):
                     int("Intentional ValueError") # input is out of the expected range, force a ValueError
             except ValueError:
                 core.clear()
@@ -146,10 +146,10 @@ class Player:
 
 #Non-Playable Character
 class NPC:
-    def __init__(self, npcName, psi, stats, calcStats, tierNum):
+    def __init__(self, npcName, mageClass, stats, calcStats, tierNum):
         self.tierNum = random.randint(0,3)
         self.npcName = core.rand_line("data/.randname") # sets enemy name; Thanks to Rae Elliot (Barely Hare Books) for the list of names
-        self.psi = random.choice(psiList) # enemy is assigned a random class
+        self.mageClass = random.choice(classList) # enemy is assigned a random class
         tModMin = {0 : 1, 1 : 8, 2 : 26, 3 : 41}
         tModMax = {0 : 7, 1 : 25, 2 : 40, 3 : 75}
         self.stats = {
