@@ -47,13 +47,13 @@ class Player:
         core.clear()
 
         self.stats = {
-            "stre": [int(0),"Strength"],
-            "inte": [int(0),"Intelligence"],
-            "perc": [int(0),"Perception"],
-            "fort": [int(0),"Fortitude"],
-            "char": [int(0),"Charisma"],
-            "spee": [int(0),"Speed"],
-            "luck": [int(0),"Luck"]
+            "stre": [int(0),"Strength"],        #Str 0
+            "inte": [int(0),"Intelligence"],    #Int 1
+            "perc": [int(0),"Perception"],      #Per 2
+            "fort": [int(0),"Fortitude"],       #frt 3  ##index values for easy referencing
+            "char": [int(0),"Charisma"],        #chr 4
+            "spee": [int(0),"Speed"],           #spe 5
+            "luck": [int(0),"Luck"]             #luk 6
             }
 
         CR = None
@@ -102,6 +102,25 @@ class Player:
                             pool -= delta # The input is subtracted from the point pool.
                             if(pool == 0): # Out of point, break the loop
                                 break
+        self.calcStats = Player.setCalcStats(self.stats)
+
+    def setCalcStats(stats): #Calculates non-direct-input stats
+        stre = stats.get("stre")[0]
+        inte = stats.get("inte")[0]
+        perc = stats.get("perc")[0]
+        fort = stats.get("fort")[0]
+        char = stats.get("char")[0]
+        spee = stats.get("spee")[0]
+        luck = stats.get("luck")[0]
+
+        calcStats = {
+                "crit": [int(luck),"Critical Chance"], #Luck stat + Accuracy Runoff
+                "mxHP": [int((fort * 10) + (stre / 2)),"Max. HP"], #Fortitude * 10 + Strength / 2
+                "accu": [int((perc * 11)),"Accuracy"], #Perception * 11, anything over 100 goes to crit
+                "pote": [int((char * inte)),"Potency"], #Charisma * Intelligence
+                "dodg": [int(((spee * 2) + luck) / (fort - (fort / 3))),"Dodge"] #((Speed*2)+luck)/(2/3) * Fortitude))
+                }
+        return calcStats
 
     def statPrint(self): # prints a nice, formatted list of stats
         print("=" * 25)
@@ -116,9 +135,18 @@ class Player:
         print( ' {:<20s} {:<10s}'.format("Stat Total", str(total)) )
         print("=" * 25)
 
+    def calcStatPrint(self):
+        for cstat in self.calcStats:
+            vals = self.calcStats[cstat]
+            one = vals[1]
+            two = str(vals[0])
+            print( ' {:<20s} {:<10s}'.format(one, two) )
+        print("-" * 25)
+
+
 #Non-Playable Character
 class NPC:
-    def __init__(self, npcName, psi, stats, tierNum):
+    def __init__(self, npcName, psi, stats, calcStats, tierNum):
         self.tierNum = random.randint(0,3)
         self.npcName = core.rand_line("data/.randname") # sets enemy name; Thanks to Rae Elliot (Barely Hare Books) for the list of names
         self.psi = random.choice(psiList) # enemy is assigned a random class
@@ -133,3 +161,4 @@ class NPC:
             "spee": [random.randint(tModMin.get(self.tierNum),tModMax.get(self.tierNum)), "Speed"],
             "luck": [random.randint(tModMin.get(self.tierNum),tModMax.get(self.tierNum)), "Luck"]
             }
+        self.calcStats = Player.setCalcStats(self.stats)
