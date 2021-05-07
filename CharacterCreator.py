@@ -120,7 +120,7 @@ class Player:
 class NPC:
     def __init__(self, npcName, psi, stats, tierNum):
         self.tierNum = random.randint(0,3)
-        self.npcName = core.rand_line(".randname") # TODO # Create cool collection of names to randomly select from
+        self.npcName = core.rand_line(".randname") # sets enemy name; Thanks to Rae Elliot (Barely Hare Books) for the list of names
         self.psi = random.choice(psiList) # enemy is assigned a random class
         tModMin = {0 : 1, 1 : 8, 2 : 26, 3 : 41}
         tModMax = {0 : 7, 1 : 25, 2 : 40, 3 : 75}
