@@ -31,12 +31,12 @@ class Player:
             self.charName = input("Name : ")
             core.clear()
 
-        while(True): # Making sure psi selection is with an int
+        while(True): # Making sure class selection is with an int
             try:
-                for x,y in zip(classNameList,classInfo): # Printing names and info of the psi classes
+                for x,y in zip(classNameList,classInfo): # Printing names and info of the mage classes
                     print(x,y)
                 self.mageClass = int(input("PSI : "))
-                if(not 0< self.mageClass < 6):
+                if(not 0 < self.mageClass < 6):
                     int("Intentional ValueError") # input is out of the expected range, force a ValueError
             except ValueError:
                 core.clear()
