@@ -24,6 +24,7 @@ import CharacterCreator as char
 from CharacterCreator import classList, tierList, classNameList, classInfo
 import random
 import core
+import menu
 from os import system, name
 
 def main():

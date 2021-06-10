@@ -143,7 +143,6 @@ class Player:
             print( ' {:<20s} {:<10s}'.format(one, two) )
         print("-" * 25)
 
-
 #Non-Playable Character
 class NPC:
     def __init__(self, npcName, mageClass, stats, calcStats, tierNum):
