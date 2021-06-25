@@ -24,7 +24,8 @@ import CharacterCreator as char
 from CharacterCreator import classList, tierList, classNameList, classInfo
 import random
 import core
-import menu
+import ui
+import pyprog
 from os import system, name
 
 def main():
@@ -48,4 +49,5 @@ def main():
     print("Tier : " + tierList[int(enemy.tierNum)])
     char.Player.statPrint(enemy)
     char.Player.calcStatPrint(enemy)
+
 main()
